@@ -2,6 +2,7 @@ package comprehensive;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -54,7 +55,7 @@ public class TextGenerator {
 	 * @return - the weighted graph
 	 * @throws IOException - if the file cannot be found
 	 */
-	private static WeightedGraph buildGraph(String fileName) throws IOException {
+	public static WeightedGraph buildGraph(String fileName) throws IOException {
 		WeightedGraph graph = new WeightedGraph();
 		List<String> words = parseWords(fileName);
 
@@ -223,4 +224,5 @@ public class TextGenerator {
 		}
 
 	}
+
 }

@@ -1,6 +1,7 @@
 package comprehensive;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -95,13 +96,42 @@ public class WeightedGraph {
 	/**
 	 * Returns a simple textual representation of this graph.
 	 * 
-	 * @return  string representation of this graph
+	 * @return string representation of this graph
 	 */
 	public String toString() {
 		String result = "";
 		for (Vertex v : vertices.values())
 			result += v + "\n";
 		return result;
+	}
+
+	/*
+	 * Generates the DOT encoding of this markov chain as a string, which can be pasted into
+	 * http://www.webgraphviz.com to produce a visualization.
+	 * 
+	 * @return DOT representation of this graph to be copy-and-pasted at
+	 * www.webgraphviz.com
+	 */
+	public String generateDot() { 
+	    StringBuilder result = new StringBuilder("digraph d {\n");
+	    for (Vertex vertex : vertices.values()) {
+	        Iterator<Edge> edges = vertex.edges();
+	        while (edges.hasNext()) {
+	            Edge edge = edges.next();
+	            String from = vertex.getWord();
+	            String to = edge.getOtherVertex().getWord();
+	            double probability = edge.getProbability();     
+	            result.append("\t")
+	                  .append(from)
+	                  .append(" -> ")
+	                  .append(to)
+	                  .append(" [label=\"")
+	                  .append(probability)
+	                  .append("\"]\n");
+	        }
+	    }
+	    result.append("}");
+	    return result.toString();
 	}
 
 }
